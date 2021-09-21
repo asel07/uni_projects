@@ -1,0 +1,38 @@
+import java.util.Scanner;
+public class main {
+    public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter three Real numbers.");
+        double x = input.nextDouble();
+        double y = input.nextDouble();
+        double z = input.nextDouble();
+        double product = 0, average = 0, max = 0, min = 0, middle = 0;
+
+        product = x*y*z;
+        average = (x+y+z)/3;
+
+        if (x > y) {
+            max = x;
+            min = y;
+        } else {
+            max = y;
+            min = x;
+        }
+
+        if (z < min) {
+            middle = min;
+            min = z;
+        } else {
+            if (z > max) {
+                middle = max;
+                max = z;
+            } else {
+                middle = z;
+            }
+        }
+
+        System.out.println("Product = " + product);
+        System.out.println("Average = " + average);
+        System.out.println("Number in ascending order: " + min + " " + middle + " " + max);
+    }
+}
