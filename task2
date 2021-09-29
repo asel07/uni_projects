@@ -1,11 +1,4 @@
-import java.util.Scanner;
-public class main {
-    public static void main(String args[]){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter three Real numbers.");
-        double x = input.nextDouble();
-        double y = input.nextDouble();
-        double z = input.nextDouble();
+public static void task2(double x, double y, double z){
         double product = 0, average = 0, max = 0, min = 0, middle = 0;
 
         product = x*y*z;
@@ -35,4 +28,3 @@ public class main {
         System.out.println("Average = " + average);
         System.out.println("Number in ascending order: " + min + " " + middle + " " + max);
     }
-}
