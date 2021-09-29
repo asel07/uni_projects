@@ -1,11 +1,4 @@
-import java.util.Scanner;
-public class main {
-    public static void main(String args[]){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter three integers.");
-        int x = input.nextInt();
-        int y = input.nextInt();
-        int z = input.nextInt();
+public static void task3(int x, int y, int z){
         double average = 0;
         int product = 0, max = 0, min = 0, middle = 0;
 
@@ -36,4 +29,3 @@ public class main {
         System.out.println("Average = " + average);
         System.out.println("Number in ascending order: " + min + " " + middle + " " + max);
     }
-}
