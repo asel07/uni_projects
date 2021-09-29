@@ -1,23 +1,21 @@
-import java.util.Scanner;
-public class main {
-    public static void main(String args[]){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter three Real numbers.");
-        double a = input.nextDouble();
-        double b = input.nextDouble();
-        double c = input.nextDouble();
+public static double[] task4(double a, double b, double c){
+        if (Double.compare(a, 0) == 0) {
+            throw new IllegalArgumentException();
+        }
         double D = 0, sol1 = 0, sol2 = 0;
-
         D = b*b - 4*a*c;
-        if (D < 0){
+
+        if (Double.compare(D, 0) < 0){
             System.out.println("The equation has no Real solutions.");
-        } else if (D == 0){
+            return new double[]{};
+        }
+        if (Double.compare(D, 0) == 0){
             sol1 = (-b)/(2*a);
             System.out.println("The equation has 1 Real solution : " + sol1 + ".");
-        } else {
-            sol1 = (-b + Math.sqrt(D))/(2*a);
-            sol2 = (-b - Math.sqrt(D))/(2*a);
-            System.out.println("The equation has 2 Real solutions : " + sol1 + " and " + sol2 + ".");
+            return new double[]{sol1};
         }
+        sol1 = (-b + Math.sqrt(D)) / (2 * a);
+        sol2 = (-b - Math.sqrt(D)) / (2 * a);
+        System.out.println("The equation has 2 Real solutions : " + sol1 + " and " + sol2 + ".");
+        return new double[]{sol1, sol2};
     }
-}
