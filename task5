@@ -1,23 +1,12 @@
-import java.util.Scanner;
+public static void task5(double rangeBegin, double rangeEnd, double step){
+        if (Double.compare(step, 0) <= 0 || Double.compare(rangeBegin,rangeEnd) >= 0){
+            throw new IllegalArgumentException();
+        }
 
-public class main {
-    public static void main(String args[]) {
-        System.out.println("Enter the range (two Real numbers) and the increment.");
-        Scanner input = new Scanner(System.in);
-        double first = input.nextDouble();
-        double last = input.nextDouble();
-        double increment = input.nextDouble();
-        double sinx = 0, x = first;
-
-        //trying to think of a way for the loop to work properly with doubles:
-        double help = (last - first)/increment;
-        int n = (int) help;
-
-        System.out.println("sin(x) in the range of " + first + " to " + last + ".");
-        for (int i = 0; i <= n; i++){   //loop not working bc of double comparison
-            x = first + i*increment;
+        double sinx = 0;
+        System.out.println("sin(x) in the range of " + rangeBegin + " to " + rangeEnd + ".");
+        for (double x = rangeBegin; x <= rangeEnd; x += step) {   //loop not working bc of double comparison
             sinx = Math.sin(x);
             System.out.println(x + ":   " + sinx);
         }
     }
-}
