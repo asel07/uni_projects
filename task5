@@ -1,3 +1,5 @@
+//5. Протабулируйте функцию sin(x) в заданных пределах и с заданным шагом.
+
 public static void task5(double rangeBegin, double rangeEnd, double step){
         if (Double.compare(step, 0) <= 0 || Double.compare(rangeBegin,rangeEnd) >= 0){
             throw new IllegalArgumentException();
