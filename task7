@@ -1,0 +1,22 @@
+/*7. Напишите программу вычисления функции exp(x) разложением в ряд Тейлора с 
+заданной точностью. Программа должна суммировать члены ряда до тех пор, пока 
+модуль очередного члена ряда не станет меньше точности. */
+
+public static double task7(double x, double eps){
+        if (Double.compare(eps, 0) <= 0){
+            throw new IllegalArgumentException();
+        }
+        double exp = 0, element = 1;
+        int count = 0;
+
+        while(Double.compare(Math.abs(element),eps) > 0){
+            exp += element;
+            count++;
+            element = Math.pow(x,count);
+            //made factorial into a loop of divisions cause the value of factorial was too large to be contained in a variable
+            for(int j = 1; j <= count; j++){
+                element /= j;
+            }
+        }
+        return exp;
+    }
