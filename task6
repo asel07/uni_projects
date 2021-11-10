@@ -1,26 +1,28 @@
 //  6. Напишите программу для решения системы двух линейных уравнений с двумя неизвестными в вещественных числах.
+//получилось не очень :(
 
-public static void task6(double a1, double b1, double c1, double a2, double b2, double c2){
-        if (Double.compare(a1+b1,0) == 0 && Double.compare(c1, 0) != 0 ||
-                Double.compare(a2+b2,0) == 0 && Double.compare(c2, 0) != 0) {
-            System.out.println("The equation has no solutions.");
-        } else if (Double.compare(b1, 0) != 0 || Double.compare(b2, 0) != 0 ){
+public static String task6(double a1, double b1, double c1, double a2, double b2, double c2){
+        if (Double.compare(a1,0) == 0 && Double.compare(b1,0) == 0 && Double.compare(c1, 0) != 0 ||
+                Double.compare(a2,0) == 0 && Double.compare(b2,0) == 0 && Double.compare(c2, 0) != 0) {
+            return "The equation has no solutions.";
+        }
+        if (Double.compare(b1, 0) != 0 || Double.compare(b2, 0) != 0 ){
             if (Double.compare(a1*b2, a2*b1) == 0){
                 if (Double.compare(c1*b2, c2*b1) == 0) {
-                    System.out.println("The equation has infinitely many solutions.");
-                } else {
-                    System.out.println("The equation has no solutions.");
+                    return "The equation has infinitely many solutions.";
                 }
-            } else {
-                double x = (c2*b1 - c1*b2)/(a1*b2 - a2*b1);
-                double y = (a2*c1 - a1*c2)/(a1*b2 - a2*b1);
-                System.out.println("y = " + y + ", x = " + x);
+                return "The equation has no solutions.";
+
             }
+            double x = (c2*b1 - c1*b2)/(a1*b2 - a2*b1);
+            double y = (a2*c1 - a1*c2)/(a1*b2 - a2*b1);
+            return "y = " + y + ", x = " + x;
+
         } else {
             if (Double.compare(a2*c1, a1*c2) == 0){
-                System.out.println("The equation has infinitely many solutions.");
+                return "The equation has infinitely many solutions.";
             } else {
-                System.out.println("The equation has no solutions.");
+                return "The equation has no solutions.";
             }
         }
     }
