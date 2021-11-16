@@ -1,0 +1,76 @@
+package com.company;
+
+public class Vector3DArray {
+    private Vector3D[] array;
+    private int length;
+
+    public Vector3DArray(int length){
+        if (length <= 0) throw new IllegalArgumentException("INVALID ARRAY LENGTH");
+        this.length = length;
+        array = new Vector3D[length];
+        for (int i = 0; i < length; i++){
+            array[i] = new Vector3D();
+        }
+    }
+    public int length(){ return length; }
+    public void swapTo(Vector3D v, int i){
+        if (i < 0 || i >= length) throw new ArrayIndexOutOfBoundsException();
+        array[i] = v;
+    }
+    public double maxVectorLength(){
+        double max = 0;
+        for (Vector3D elem: array){ //ok to use for each loop?
+            if (elem.length() > max)
+                max = elem.length();
+        }
+        return max;
+    }
+    public int findVector(Vector3D v){
+        int i = 0;
+        while(i < length && !array[i].equals(v)){
+            i++;
+        }
+        if (i == length)
+            return -1;
+        else
+            return i;
+    }
+    public Vector3D sum(){
+        Vector3D result = new Vector3D();
+        for (Vector3D elem: array){
+            result = Vector3DProcessor.sum(result, elem);
+        }
+        return result;
+    }
+    public Vector3D linearCombination(double[] coefficients){
+        if (coefficients.length != length) throw new IllegalArgumentException("ARRAY LENGTHS DO NOT MATCH");
+        double x = 0, y = 0, z = 0;
+        for (int i = 0; i < length; i++){
+            x += coefficients[i]*array[i].getX();
+            y += coefficients[i]*array[i].getY();
+            z += coefficients[i]*array[i].getZ();
+        }
+        return new Vector3D(x,y,z);
+    }
+    public Point3D[] movePoint(Point3D p){
+        Point3D[] pArray = new Point3D[length];
+        double x = 0, y = 0, z = 0;
+        for (int i = 0; i < length; i ++){
+            x = p.getX() + array[i].getX();
+            y = p.getY() + array[i].getY();
+            z = p.getZ() + array[i].getZ();
+            pArray[i] = new Point3D(x,y,z);
+        }
+        return pArray;
+    }
+    public Vector3D getElement(int i){
+        if (i < 0 || i >= length) throw new ArrayIndexOutOfBoundsException();
+        return array[i];
+    }
+
+    public void print(){
+        for (Vector3D elem: array){
+            elem.print();
+        }
+    }
+}
