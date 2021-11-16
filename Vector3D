@@ -1,0 +1,40 @@
+package com.company;
+
+public class Vector3D {
+    private double x, y, z;
+
+    public Vector3D(){ x = 0; y = 0; z = 0; }
+    public Vector3D(double x, double y, double z){ this.x = x; this.y = y; this.z = z; }
+    public Vector3D(Point3D point1, Point3D point2){
+        x = point1.getX() - point2.getX();
+        y = point1.getY() - point2.getY();
+        z = point1.getZ() - point2.getZ();
+    }
+
+    public double length(){ return Math.sqrt(x*x + y*y + z*z);}
+    public boolean equals(Vector3D vector){
+        return this.x == vector.x && this.y == vector.y && this.z == vector.z;
+    }
+
+    public void print() {System.out.println("x: " + x + " y: " + y + " z: " + z);}
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public double getZ() { return z; }
+    public void setX(double x) { this.x = x; }
+    public void setY(double y) { this.y = y; }
+    public void setZ(double z) { this.z = z; }
+
+    public static void main(String args[]){
+        Vector3D v1 = new Vector3D();
+        Vector3D v2 = new Vector3D(1, -2, 3);
+
+        Point3D a = new Point3D(3, 3 ,4);
+        Point3D b = new Point3D(2,5,1);
+        Vector3D v3 = new Vector3D(a,b);
+
+        v1.print(); v2.print(); v3.print();
+        System.out.println(v1.length() + "\n" + v2.length() + "\n" + v3.length());
+        System.out.println(v1.equals(v2) + " " + v2.equals(v3));
+
+    }
+}
