@@ -2,20 +2,20 @@ package com.company;
 
 public class Vector3DArray {
     private Vector3D[] array;
-    private int length;
 
     public Vector3DArray(int length){
         if (length <= 0) throw new IllegalArgumentException("INVALID ARRAY LENGTH");
-        this.length = length;
         array = new Vector3D[length];
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < array.length; i++){
             array[i] = new Vector3D();
         }
     }
-    public int length(){ return length; }
+    public int length(){ return array.length; }
     public void swapTo(Vector3D v, int i){
-        if (i < 0 || i >= length) throw new ArrayIndexOutOfBoundsException();
-        array[i] = v;
+        if (i < 0 || i >= array.length) throw new ArrayIndexOutOfBoundsException();
+        array[i].setX(v.getX());
+        array[i].setY(v.getY());
+        array[i].setZ(v.getZ());
     }
     public double maxVectorLength(){
         double max = 0;
@@ -27,10 +27,10 @@ public class Vector3DArray {
     }
     public int findVector(Vector3D v){
         int i = 0;
-        while(i < length && !array[i].equals(v)){
+        while(i < array.length && !array[i].equals(v)){
             i++;
         }
-        if (i == length)
+        if (i == array.length)
             return -1;
         else
             return i;
@@ -43,9 +43,9 @@ public class Vector3DArray {
         return result;
     }
     public Vector3D linearCombination(double[] coefficients){
-        if (coefficients.length != length) throw new IllegalArgumentException("ARRAY LENGTHS DO NOT MATCH");
+        if (coefficients.length != array.length) throw new IllegalArgumentException("ARRAY LENGTHS DO NOT MATCH");
         double x = 0, y = 0, z = 0;
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < array.length; i++){
             x += coefficients[i]*array[i].getX();
             y += coefficients[i]*array[i].getY();
             z += coefficients[i]*array[i].getZ();
@@ -53,9 +53,9 @@ public class Vector3DArray {
         return new Vector3D(x,y,z);
     }
     public Point3D[] movePoint(Point3D p){
-        Point3D[] pArray = new Point3D[length];
+        Point3D[] pArray = new Point3D[array.length];
         double x = 0, y = 0, z = 0;
-        for (int i = 0; i < length; i ++){
+        for (int i = 0; i < array.length; i ++){
             x = p.getX() + array[i].getX();
             y = p.getY() + array[i].getY();
             z = p.getZ() + array[i].getZ();
@@ -64,7 +64,7 @@ public class Vector3DArray {
         return pArray;
     }
     public Vector3D getElement(int i){
-        if (i < 0 || i >= length) throw new ArrayIndexOutOfBoundsException();
+        if (i < 0 || i >= array.length) throw new ArrayIndexOutOfBoundsException();
         return array[i];
     }
 
@@ -72,5 +72,17 @@ public class Vector3DArray {
         for (Vector3D elem: array){
             elem.print();
         }
+    }
+
+    public static void main(String args[]){
+        Vector3DArray ar = new Vector3DArray(3);
+        Vector3D v1 = new Vector3D(1,2,3);
+        Vector3D v2 = new Vector3D(0,1,2);
+        ar.swapTo(v1,0);
+        ar.swapTo(v2,2);
+        ar.print();
+        System.out.println(ar.maxVectorLength());
+        System.out.println(ar.findVector(v2));
+        ar.sum().print();
     }
 }
