@@ -1,88 +1,40 @@
 package com.company;
 
-public class Vector3DArray {
-    private Vector3D[] array;
-
-    public Vector3DArray(int length){
-        if (length <= 0) throw new IllegalArgumentException("INVALID ARRAY LENGTH");
-        array = new Vector3D[length];
-        for (int i = 0; i < array.length; i++){
-            array[i] = new Vector3D();
-        }
-    }
-    public int length(){ return array.length; }
-    public void swapTo(Vector3D v, int i){
-        if (i < 0 || i >= array.length) throw new ArrayIndexOutOfBoundsException();
-        array[i].setX(v.getX());
-        array[i].setY(v.getY());
-        array[i].setZ(v.getZ());
-    }
-    public double maxVectorLength(){
-        double max = 0;
-        for (Vector3D elem: array){ //ok to use for each loop?
-            if (elem.length() > max)
-                max = elem.length();
-        }
-        return max;
-    }
-    public int findVector(Vector3D v){
-        int i = 0;
-        while(i < array.length && !array[i].equals(v)){
-            i++;
-        }
-        if (i == array.length)
-            return -1;
-        else
-            return i;
-    }
-    public Vector3D sum(){
-        Vector3D result = new Vector3D();
-        for (Vector3D elem: array){
-            result = Vector3DProcessor.sum(result, elem);
-        }
-        return result;
-    }
-    public Vector3D linearCombination(double[] coefficients){
-        if (coefficients.length != array.length) throw new IllegalArgumentException("ARRAY LENGTHS DO NOT MATCH");
-        double x = 0, y = 0, z = 0;
-        for (int i = 0; i < array.length; i++){
-            x += coefficients[i]*array[i].getX();
-            y += coefficients[i]*array[i].getY();
-            z += coefficients[i]*array[i].getZ();
-        }
+public class Vector3DProcessor {
+    public static Vector3D sum(Vector3D v1, Vector3D v2){
+        double x = v1.getX()+v2.getX();
+        double y = v1.getY()+v2.getY();
+        double z = v1.getZ()+v2.getZ();
         return new Vector3D(x,y,z);
     }
-    public Point3D[] movePoint(Point3D p){
-        Point3D[] pArray = new Point3D[array.length];
-        double x = 0, y = 0, z = 0;
-        for (int i = 0; i < array.length; i ++){
-            x = p.getX() + array[i].getX();
-            y = p.getY() + array[i].getY();
-            z = p.getZ() + array[i].getZ();
-            pArray[i] = new Point3D(x,y,z);
-        }
-        return pArray;
+    public static Vector3D difference(Vector3D v1, Vector3D v2){
+        double x = v1.getX()-v2.getX();
+        double y = v1.getY()-v2.getY();
+        double z = v1.getZ()-v2.getZ();
+        return new Vector3D(x,y,z);
     }
-    public Vector3D getElement(int i){
-        if (i < 0 || i >= array.length) throw new ArrayIndexOutOfBoundsException();
-        return array[i];
+    public static double scalarProduct(Vector3D v1, Vector3D v2){
+        return v1.getX()* v2.getX() + v1.getY()* v2.getY() + v1.getZ()* v2.getZ();
     }
-
-    public void print(){
-        for (Vector3D elem: array){
-            elem.print();
-        }
+    public static Vector3D vectorProduct(Vector3D v1, Vector3D v2){
+        double x = v1.getY()*v2.getZ() - v1.getZ()*v2.getY();
+        double y = v1.getZ()*v2.getX() - v1.getX()*v2.getZ();
+        double z = v1.getX()*v2.getY() - v1.getY()*v2.getX();
+        return new Vector3D(x,y,z);
+    }
+    public static boolean areCollinear(Vector3D v1, Vector3D v2){
+        Vector3D v0 = new Vector3D();
+        Vector3D v = vectorProduct(v1,v2);
+        return v.equals(v0);
     }
 
     public static void main(String args[]){
-        Vector3DArray ar = new Vector3DArray(3);
-        Vector3D v1 = new Vector3D(1,2,3);
-        Vector3D v2 = new Vector3D(0,1,2);
-        ar.swapTo(v1,0);
-        ar.swapTo(v2,2);
-        ar.print();
-        System.out.println(ar.maxVectorLength());
-        System.out.println(ar.findVector(v2));
-        ar.sum().print();
+        Vector3D v1 = new Vector3D(1,-2,3);
+        Vector3D v2 = new Vector3D(4,-1,4);
+        Vector3DProcessor.sum(v1,v2).print();
+        Vector3DProcessor.difference(v1,v2).print();
+        System.out.println(Vector3DProcessor.scalarProduct(v1,v2));
+        Vector3DProcessor.vectorProduct(v1,v2).print();
+        System.out.println(Vector3DProcessor.areCollinear(v1,v2));
     }
 }
