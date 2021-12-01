@@ -1,0 +1,76 @@
+package com.company;
+
+public class StringProcessor {
+    public static String cloneString(String s, int N){
+        if (N < 0){
+            throw new IllegalArgumentException("Invalid number in String.clone");
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < N; i++){
+            result.append(s);
+        }
+        return result.toString();
+    }
+    public static int numberOfOccurrences(String str, String substr){
+        if (substr == null){ throw new IllegalArgumentException("The substring does not exist"); }
+        if (substr.equals("")){ throw new IllegalArgumentException("The substring is empty"); }
+
+        if (!str.contains(substr)){
+            return 0;
+        }
+        int count = 1;
+        int index = str.indexOf(substr);
+        while (index != str.lastIndexOf(substr)) {
+            count++;
+            index = str.indexOf(substr,index+1);
+        }
+        return count;
+    }
+    public static String numbersToText123(String str){
+        StringBuilder result = new StringBuilder(str);
+        int index;
+        for (int i = 0; i < numberOfOccurrences(str, "1"); i++) {
+            index = result.indexOf("1");
+            result.deleteCharAt(index);
+            result.insert(index,"один");
+        }
+        for (int i = 0; i < numberOfOccurrences(str, "2"); i++) {
+            index = result.indexOf("2");
+            result.deleteCharAt(index);
+            result.insert(index,"два");
+        }
+        for (int i = 0; i < numberOfOccurrences(str, "3"); i++) {
+            index = result.indexOf("3");
+            result.deleteCharAt(index);
+            result.insert(index,"три");
+        }
+        return result.toString();
+    }
+    public static void deleteEverySecondChar(StringBuilder str){
+        int length = str.length();
+        for (int i = 0; i < length/2; i++){
+            str.deleteCharAt(i+1);
+        }
+    }
+//    public static String reverseOrderWithSameWhitespaces(String str){
+//        String[] array = str.split(" ");
+//        int j = array.length - 1;
+//        StringBuilder result = new StringBuilder();
+//        for (int i = 0; i < array.length; i++){
+//            if (array[i].equals("")){
+//                result.append(" ");
+//            } else
+//            {
+//                result.append(array[j]);
+//                result.append(" ");
+//                j--;
+//            }
+//        }
+//    b1 e1   b2 e2
+//            headSpaces
+//            first
+//            middle
+//            last
+//    tailSpaces
+//    }
+}
