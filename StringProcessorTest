@@ -1,0 +1,76 @@
+package com.company;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class StringProcessorTest
+{
+    @Test(expected = IllegalArgumentException.class)
+    public void testCloneException(){
+        String str = "abc";
+        String str2 = StringProcessor.cloneString(str, -2); //is class name necessary, it's not really working otherwise
+    }
+
+    @Test
+    public void testClone(){
+        String str = "o ";
+        String expected1 = "";
+        String expected2 = "o o o o ";
+        assertEquals(expected1, StringProcessor.cloneString(str, 0));
+        assertEquals(expected2, StringProcessor.cloneString(str, 4));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNumberOfOccurrencesNullPointerException(){
+        String str1 = "123";
+        String str2 = null;
+        int num = StringProcessor.numberOfOccurrences(str1, str2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNumberOfOccurrencesIllegalArgumentException(){
+        String str1 = "123";
+        String str2 = "";
+        int num = StringProcessor.numberOfOccurrences(str1, str2);
+    }
+
+    @Test
+    public void testNumberOfOccurrences(){
+        String str1 = "even evening ever";
+        String str2 = "every";
+        int num1 = StringProcessor.numberOfOccurrences(str1, str2);
+        assertEquals(0,num1);
+
+        String str3 = "eve";
+        int num2 = StringProcessor.numberOfOccurrences(str1,str3);
+        assertEquals(3, num2);
+    }
+
+    @Test
+    public void testNumbersToText123(){
+        String str1 = "3 - 1 = 2";
+        String str2 = "Hello world!";
+        String str3 = "2 апельсина";
+
+        assertEquals("три - один = два", StringProcessor.numbersToText123(str1));
+        assertEquals("Hello world!", StringProcessor.numbersToText123(str2));
+        assertEquals("два апельсина", StringProcessor.numbersToText123(str3));
+    }
+
+    @Test
+    public void testDeleteEverySecondChar(){
+        StringBuilder str1 = new StringBuilder("012345678");
+        StringBuilder str2 = new StringBuilder("012345");
+        StringBuilder str3 = new StringBuilder("0");
+
+        StringProcessor.deleteEverySecondChar(str1);
+        StringProcessor.deleteEverySecondChar(str2);
+        StringProcessor.deleteEverySecondChar(str3);
+
+        assertEquals("02468",str1.toString());
+        assertEquals("024", str2.toString());
+        assertEquals("0", str3.toString());
+
+    }
+}
